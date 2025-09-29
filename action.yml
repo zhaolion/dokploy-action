@@ -14,6 +14,12 @@ inputs:
   application_id:
     description: "Dokploy application ID"
     required: true
+  title:
+    description: "Deployment title"
+    required: false
+  message:
+    description: "Deployment message"
+    required: false
 
 runs:
   using: "composite"
@@ -33,6 +39,8 @@ runs:
           -d '{
             "json": {
               "applicationId": "'"${DOKPLOY_APPLICATION_ID}"'"
+              "title": "'"${DOKPLOY_TITLE}"'"
+              "message": "'"${DOKPLOY_MESSAGE}"'"
             }
           }' \
           -w "%{http_code}" \
