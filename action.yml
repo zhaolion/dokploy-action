@@ -26,7 +26,7 @@ runs:
         DOKPLOY_APPLICATION_ID: ${{ inputs.application_id }}
       run: |
         response=$(curl -X POST \
-          "${DOKPLOY_URL}/api/trpc/application.deploy" \
+          "${DOKPLOY_URL}/api/application.deploy" \
           -H 'accept: application/json' \
           -H "x-api-key:${DOKPLOY_API_TOKEN}" \
           -H 'Content-Type: application/json' \
