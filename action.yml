@@ -1,0 +1,47 @@
+name: "Dokploy Deployment"
+description: "Trigger a Dokploy deployment"
+branding:
+  icon: "upload-cloud"
+  color: "gray-dark"
+
+inputs:
+  dokploy_url:
+    description: "Dokploy base URL, e.g. https://dokploy.example.com"
+    required: true
+  api_token:
+    description: "Dokploy authentication token"
+    required: true
+  application_id:
+    description: "Dokploy application ID"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Trigger Dokploy deployment
+      shell: bash
+      env:
+        DOKPLOY_URL: ${{ inputs.dokploy_url }}
+        DOKPLOY_API_TOKEN: ${{ inputs.api_token }}
+        DOKPLOY_APPLICATION_ID: ${{ inputs.application_id }}
+      run: |
+        response=$(curl -X POST \
+          "${DOKPLOY_URL}/api/trpc/application.deploy" \
+          -H 'accept: application/json' \
+          -H "x-api-key:${DOKPLOY_API_TOKEN}" \
+          -H 'Content-Type: application/json' \
+          -d '{
+            "json": {
+              "applicationId": "'"${DOKPLOY_APPLICATION_ID}"'"
+            }
+          }' \
+          -w "%{http_code}" \
+          -o /dev/null \
+          -s)
+
+        if [ "$response" -ne 200 ]; then
+          echo "Deployment failed with status code: $response"
+          exit 1
+        else
+          echo "Deployment triggered successfully with status code: $response"
+        fi
