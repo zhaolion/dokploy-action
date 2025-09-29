@@ -43,11 +43,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Trigger Dokploy Deployment
-        uses: zhaolion/dokploy-action@0.0.1
+        uses: zhaolion/dokploy-action@0.0.4
         with:
-          auth_token: ${{ secrets.DOKPLOY_API_TOKEN }}
+          api_token: ${{ secrets.DOKPLOY_API_TOKEN }}
           application_id: ${{ secrets.DOKPLOY_APPLICATION_ID }}
           dokploy_url: ${{ secrets.DOKPLOY_URL }}
+          deploy_title: "[Deploy][${{ github.ref_name }}][${{ github.sha }}]"
+          deploy_message: "Deployed branch: ${{ github.ref_name }} ${{ github.sha }} at ${{ github.event.head_commit.timestamp }}"
 ```
 
 Note: If you encounter persistent 403 errors, it might be related to Cloudflare bot detection blocking the requests, so it’s worth checking on that separately.

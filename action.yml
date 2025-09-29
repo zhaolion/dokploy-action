@@ -40,8 +40,8 @@ runs:
           -H 'Content-Type: application/json' \
           -d '{
             "json": {
-              "applicationId": "'"${DOKPLOY_APPLICATION_ID}"'"
-              "title": "'"${DOKPLOY_TITLE}"'"
+              "applicationId": "'"${DOKPLOY_APPLICATION_ID}"'",
+              "title": "'"${DOKPLOY_TITLE}"'",
               "message": "'"${DOKPLOY_MESSAGE}"'"
             }
           }' \
