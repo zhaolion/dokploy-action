@@ -36,14 +36,12 @@ runs:
         response=$(curl -X POST \
           "${DOKPLOY_URL}/api/application.deploy" \
           -H 'accept: application/json' \
-          -H "x-api-key:${DOKPLOY_API_TOKEN}" \
+          -H "x-api-key: ${DOKPLOY_API_TOKEN}" \
           -H 'Content-Type: application/json' \
           -d '{
-            "json": {
-              "applicationId": "'"${DOKPLOY_APPLICATION_ID}"'",
-              "title": "'"${DOKPLOY_TITLE}"'",
-              "message": "'"${DOKPLOY_MESSAGE}"'"
-            }
+            "applicationId": "'"${DOKPLOY_APPLICATION_ID}"'",
+            "title": "'"${DOKPLOY_TITLE}"'",
+            "description": "'"${DOKPLOY_MESSAGE}"'"
           }' \
           -w "%{http_code}" \
           -o /dev/null \
