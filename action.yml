@@ -14,10 +14,10 @@ inputs:
   application_id:
     description: "Dokploy application ID"
     required: true
-  title:
+  deploy_title:
     description: "Deployment title"
     required: false
-  message:
+  deploy_message:
     description: "Deployment message"
     required: false
 
@@ -30,6 +30,8 @@ runs:
         DOKPLOY_URL: ${{ inputs.dokploy_url }}
         DOKPLOY_API_TOKEN: ${{ inputs.api_token }}
         DOKPLOY_APPLICATION_ID: ${{ inputs.application_id }}
+        DOKPLOY_TITLE: ${{ inputs.deploy_title }}
+        DOKPLOY_MESSAGE: ${{ inputs.deploy_message }}
       run: |
         response=$(curl -X POST \
           "${DOKPLOY_URL}/api/application.deploy" \
